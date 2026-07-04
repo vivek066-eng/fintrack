@@ -12,6 +12,7 @@ target/
 node_modules/
 dist/
 .angular/
+fintrack-frontend/
 
 # Environment / secrets
 *.env
