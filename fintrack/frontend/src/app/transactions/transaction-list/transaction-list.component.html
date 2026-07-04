@@ -1,0 +1,45 @@
+<h1 class="page-title">Transactions</h1>
+
+<div class="card form-card">
+  <h3>{{ editingTransaction ? 'Edit Transaction' : 'Add New Transaction' }}</h3>
+  <app-transaction-form
+    [editingTransaction]="editingTransaction"
+    (saved)="onSaved()"
+    (cancelled)="onCancelled()">
+  </app-transaction-form>
+</div>
+
+<div class="card">
+  <div class="list-header">
+    <h3>All Transactions</h3>
+    <select [(ngModel)]="filterType" name="filterType" class="filter-select">
+      <option value="ALL">All</option>
+      <option value="INCOME">Income</option>
+      <option value="EXPENSE">Expense</option>
+    </select>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">Loading...</div>
+
+  <table class="txn-table" *ngIf="!isLoading">
+    <thead>
+      <tr><th>Title</th><th>Category</th><th>Type</th><th>Amount</th><th>Date</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of filteredTransactions">
+        <td>{{ t.title }}</td>
+        <td>{{ t.category }}</td>
+        <td><span [class]="t.type === 'INCOME' ? 'badge badge-income' : 'badge badge-expense'">{{ t.type }}</span></td>
+        <td>₹{{ t.amount | number:'1.2-2' }}</td>
+        <td>{{ t.date }}</td>
+        <td class="actions">
+          <button class="btn-icon" (click)="onEdit(t)">✏️</button>
+          <button class="btn-icon" (click)="onDelete(t.id)">🗑️</button>
+        </td>
+      </tr>
+      <tr *ngIf="filteredTransactions.length === 0">
+        <td colspan="6" class="empty-text">No transactions found.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

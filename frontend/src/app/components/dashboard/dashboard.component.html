@@ -1,0 +1,15 @@
+<div class="dashboard-page">
+  <div class="dashboard-card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h1>Welcome, {{ user()?.fullName || user()?.username }} 👋</h1>
+      <button class="logout-btn" (click)="logout()">Log out</button>
+    </div>
+    <p>Email: {{ user()?.email }}</p>
+    <p>Username: {{ user()?.username }}</p>
+    <hr />
+    <p style="color: #6b7280;">
+      This is a placeholder dashboard. Your transactions and category data from
+      <code>TransactionController</code> / <code>DashboardController</code> can be wired in here next.
+    </p>
+  </div>
+</div>
